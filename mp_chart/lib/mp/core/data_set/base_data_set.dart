@@ -1,16 +1,16 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/color/gradient_color.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_data_set.dart';
 import 'package:mp_chart/mp/core/entry/entry.dart';
-import 'dart:ui' as ui;
-
 import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
 import 'package:mp_chart/mp/core/enums/legend_form.dart';
 import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
-import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
 import 'package:mp_chart/mp/core/utils/utils.dart';
+import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
 
 abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
   /// List representing all colors that are used for this DataSet
@@ -60,8 +60,8 @@ abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
 
   /// Default constructor.
   BaseDataSet() {
-    _colors = List();
-    _valueColors = List();
+    _colors = [];
+    _valueColors = [];
     // default color
     _colors.add(ui.Color.fromARGB(255, 140, 234, 255));
     _valueColors.add(ColorUtils.BLACK);
@@ -71,8 +71,8 @@ abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
   ///
   /// @param label
   BaseDataSet.withLabel(String label) {
-    _colors = List();
-    _valueColors = List();
+    _colors = [];
+    _valueColors = [];
 
     // default color
     _colors.add(ui.Color.fromARGB(255, 140, 234, 255));
@@ -140,7 +140,7 @@ abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
   ///
   /// @param color
   void addColor(ui.Color color) {
-    if (_colors == null) _colors = List();
+    if (_colors == null) _colors = [];
     _colors.add(color);
   }
 
@@ -196,7 +196,7 @@ abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
   /// Resets all colors of this DataSet and recreates the colors array.
   void resetColors() {
     if (_colors == null) {
-      _colors = List();
+      _colors = [];
     }
     _colors.clear();
   }

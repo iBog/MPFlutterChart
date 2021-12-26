@@ -41,7 +41,7 @@ class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
     }
   }
 
-  List<double> mPixelBuffer = List(2);
+  List<double> mPixelBuffer = List.filled(2, 0.0);
 
   void drawDataSet(Canvas c, IScatterDataSet dataSet) {
     if (dataSet.getEntryCount() < 1) return;

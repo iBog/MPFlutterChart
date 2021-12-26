@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/animator.dart';
@@ -105,7 +103,8 @@ abstract class DataRenderer extends Renderer {
   /// @param x         position
   /// @param y         position
   /// @param color
-  void drawValue(Canvas c, String valueText, double x, double y, Color color, double textSize, TypeFace typeFace);
+  void drawValue(Canvas c, String valueText, double x, double y, Color color,
+      double textSize, TypeFace typeFace);
 
   /// Draws any kind of additional information (e.g. line-circles).
   ///

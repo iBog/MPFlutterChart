@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mp_chart/mp/core/animator.dart';
 import 'package:mp_chart/mp/core/axis/x_axis.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
+import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
 import 'package:mp_chart/mp/core/data/bar_line_scatter_candle_bubble_data.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_bar_line_scatter_candle_bubble_data_set.dart';
@@ -25,7 +25,6 @@ import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/legend_renderer.dart';
 import 'package:mp_chart/mp/core/render/x_axis_renderer.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
-import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/utils/matrix4_utils.dart';
 import 'package:mp_chart/mp/core/utils/utils.dart';
@@ -662,7 +661,7 @@ abstract class BarLineChartBasePainter<
       return _axisRight.axisRange;
   }
 
-  List<double> mGetPositionBuffer = List(2);
+  List<double> mGetPositionBuffer = List.filled(2, 0.0);
 
   /// Returns a recyclable MPPointF instance.
   /// Returns the position (in pixels) the provided Entry has inside the chart
@@ -894,25 +893,25 @@ abstract class BarLineChartBasePainter<
     return false;
   }
 
-  bool updateEntry(int index, Entry entry, int dataSetIndex){
+  bool updateEntry(int index, Entry entry, int dataSetIndex) {
     var dataSet = getData().getDataSetByIndex(dataSetIndex);
-    if(dataSet == null) {
+    if (dataSet == null) {
       return false;
     }
 
     return dataSet.updateEntryByIndex(index, entry);
   }
 
-  void addEntryByIndex(int index, Entry entry, int dataSetIndex){
+  void addEntryByIndex(int index, Entry entry, int dataSetIndex) {
     var dataSet = getData().getDataSetByIndex(dataSetIndex);
-    if(dataSet != null){
+    if (dataSet != null) {
       dataSet.addEntryByIndex(index, entry);
     }
   }
 
-  void addEntry(Entry entry, int dataSetIndex){
+  void addEntry(Entry entry, int dataSetIndex) {
     var dataSet = getData().getDataSetByIndex(dataSetIndex);
-    if(dataSet != null) {
+    if (dataSet != null) {
       addEntryByIndex(dataSet.getEntryCount(), entry, dataSetIndex);
     }
   }

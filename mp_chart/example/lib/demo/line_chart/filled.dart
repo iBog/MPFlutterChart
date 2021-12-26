@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:example/demo/action_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/line_chart.dart';
 import 'package:mp_chart/mp/controller/line_chart_controller.dart';
@@ -12,7 +13,6 @@ import 'package:mp_chart/mp/core/entry/entry.dart';
 import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
 import 'package:mp_chart/mp/core/fill_formatter/i_fill_formatter.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
-import 'package:example/demo/action_state.dart';
 
 class LineChartFilled extends StatefulWidget {
   @override
@@ -170,14 +170,14 @@ class LineChartFilledState extends SimpleActionState<LineChartFilled> {
   }
 
   void _initLineData(int count, double range) {
-    List<Entry> values1 = new List();
+    List<Entry> values1 = [];
 
     for (int i = 0; i < count; i++) {
       double val = (random.nextDouble() * range) + 50;
       values1.add(new Entry(x: i.toDouble(), y: val));
     }
 
-    List<Entry> values2 = new List();
+    List<Entry> values2 = [];
 
     for (int i = 0; i < count; i++) {
       double val = (random.nextDouble() * range) + 450;
@@ -216,7 +216,9 @@ class LineChartFilledState extends SimpleActionState<LineChartFilled> {
     set2.setFillFormatter(B());
 
     // create a data object with the data sets
-    _controller.data = LineData.fromList(List()..add(set1)..add(set2));
+    _controller.data = LineData.fromList([]
+      ..add(set1)
+      ..add(set2));
     _controller.data.setDrawValues(false);
 
     setState(() {});

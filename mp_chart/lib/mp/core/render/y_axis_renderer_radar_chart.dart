@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
 import 'package:mp_chart/mp/core/limit_line.dart';
+import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
 import 'package:mp_chart/mp/core/utils/painter_utils.dart';
+import 'package:mp_chart/mp/core/utils/utils.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
 import 'package:mp_chart/mp/painter/radar_chart_painter.dart';
-import 'package:mp_chart/mp/core/poolable/point.dart';
-import 'package:mp_chart/mp/core/utils/utils.dart';
 
 class YAxisRendererRadarChart extends YAxisRenderer {
   RadarChartPainter _painter;
@@ -30,8 +30,8 @@ class YAxisRendererRadarChart extends YAxisRenderer {
     double range = (yMax - yMin).abs();
 
     if (labelCount == 0 || range <= 0 || range.isInfinite) {
-      axis.entries = List();
-      axis.centeredEntries = List();
+      axis.entries = [];
+      axis.centeredEntries = [];
       axis.entryCount = 0;
       return;
     }
@@ -65,7 +65,7 @@ class YAxisRendererRadarChart extends YAxisRenderer {
 
       if (axis.entries.length < labelCount) {
         // Ensure stops contains at least numStops elements.
-        axis.entries = List(labelCount);
+        axis.entries = List.filled(labelCount, 0.0);
       }
 
       double v = min;
@@ -104,7 +104,7 @@ class YAxisRendererRadarChart extends YAxisRenderer {
 
       if (axis.entries.length < n) {
         // Ensure stops contains at least numStops elements.
-        axis.entries = List(n);
+        axis.entries = List.filled(n, 0.0);
       }
 
       f = first;
@@ -126,7 +126,7 @@ class YAxisRendererRadarChart extends YAxisRenderer {
 
     if (centeringEnabled) {
       if (axis.centeredEntries.length < n) {
-        axis.centeredEntries = List(n);
+        axis.centeredEntries = List.filled(n, 0.0);
       }
 
       double offset = (axis.entries[1] - axis.entries[0]) / 2;

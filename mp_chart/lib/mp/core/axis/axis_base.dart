@@ -19,9 +19,9 @@ abstract class AxisBase extends ComponentBase {
 
   double _axisLineWidth = 1;
 
-  List<double> _entries = List();
+  List<double> _entries = [];
 
-  List<double> _centeredEntries = List();
+  List<double> _centeredEntries = [];
 
   /// the number of entries the legend contains
   int _entryCount = 0;
@@ -95,7 +95,7 @@ abstract class AxisBase extends ComponentBase {
     textSize = 10;
     xOffset = 5;
     yOffset = 5;
-    this._limitLines = List<LimitLine>();
+    this._limitLines = [];
   }
 
   // ignore: unnecessary_getters_setters
@@ -381,7 +381,6 @@ abstract class AxisBase extends ComponentBase {
   /// @param spaceLength the length of space in between the pieces
   /// @param phase       offset, in degrees (normally, use 0)
   void enableAxisLineDashedLine(
-
       double lineLength, double spaceLength, double phase) {
     _axisLineDashPathEffect = DashPathEffect(lineLength, spaceLength, phase);
   }

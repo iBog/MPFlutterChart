@@ -1,12 +1,9 @@
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
-
-import 'package:flutter/painting.dart';
-import 'package:mp_chart/mp/core/adapter_android_mp.dart';
+import 'package:mp_chart/mp/core/animator.dart';
 import 'package:mp_chart/mp/core/bounds.dart';
 import 'package:mp_chart/mp/core/cache.dart';
-import 'package:mp_chart/mp/core/animator.dart';
 import 'package:mp_chart/mp/core/data/line_data.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_data_set.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_line_data_set.dart';
@@ -14,15 +11,17 @@ import 'package:mp_chart/mp/core/data_provider/line_data_provider.dart';
 import 'package:mp_chart/mp/core/entry/entry.dart';
 import 'package:mp_chart/mp/core/enums/mode.dart';
 import 'package:mp_chart/mp/core/highlight/highlight.dart';
+import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/line_radar_renderer.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/utils/canvas_utils.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/utils/painter_utils.dart';
+import 'package:mp_chart/mp/core/utils/utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
-import 'package:mp_chart/mp/core/poolable/point.dart';
-import 'package:mp_chart/mp/core/utils/utils.dart';
+
+import '../adapter_android_mp.dart';
 
 class LineChartRenderer extends LineRadarRenderer {
   LineDataProvider _provider;
@@ -119,7 +118,7 @@ class LineChartRenderer extends LineRadarRenderer {
 
     xBounds.set(_provider, dataSet);
 
-    List<double> list = List();
+    List<double> list = [];
 
     if (xBounds.range >= 1) {
       Entry prev = dataSet.getEntryForIndex(xBounds.min);
@@ -195,7 +194,7 @@ class LineChartRenderer extends LineRadarRenderer {
 
     double intensity = dataSet.getCubicIntensity();
 
-    List<double> list = List();
+    List<double> list = [];
 
     if (xBounds.range >= 1) {
       double prevDx = 0;
@@ -291,7 +290,7 @@ class LineChartRenderer extends LineRadarRenderer {
     double fillMin =
         dataSet.getFillFormatter().getFillLinePosition(dataSet, _provider);
 
-    List<double> list = List();
+    List<double> list = [];
     list.add(dataSet.getEntryForIndex(bounds.min + bounds.range).x);
     list.add(fillMin);
     list.add(dataSet.getEntryForIndex(bounds.min).x);
@@ -319,7 +318,7 @@ class LineChartRenderer extends LineRadarRenderer {
 //    }
   }
 
-  List<double> mLineBuffer = List(4);
+  List<double> mLineBuffer = List.filled(4, 0.0);
 
   /// Draws a normal line.
   ///
@@ -356,7 +355,7 @@ class LineChartRenderer extends LineRadarRenderer {
     // more than 1 color
     if (dataSet.getColors().length > 1) {
       if (mLineBuffer.length <= pointsPerEntryPair * 2)
-        mLineBuffer = List(pointsPerEntryPair * 4);
+        mLineBuffer = List.filled(pointsPerEntryPair * 4, 0.0);
 
       for (int j = xBounds.min; j <= xBounds.range + xBounds.min; j++) {
         Entry e = dataSet.getEntryForIndex(j);
@@ -408,8 +407,9 @@ class LineChartRenderer extends LineRadarRenderer {
 
       if (mLineBuffer.length <
           max((entryCount) * pointsPerEntryPair, pointsPerEntryPair) * 2)
-        mLineBuffer = List(
-            max((entryCount) * pointsPerEntryPair, pointsPerEntryPair) * 4);
+        mLineBuffer = List.filled(
+            max((entryCount) * pointsPerEntryPair, pointsPerEntryPair) * 4,
+            0.0);
 
       Entry e1, e2;
 
@@ -515,7 +515,7 @@ class LineChartRenderer extends LineRadarRenderer {
     final double phaseY = animator.getPhaseY();
     final bool isDrawSteppedEnabled = dataSet.getMode() == Mode.STEPPED;
 
-    List<double> points = List();
+    List<double> points = [];
     final Path filled = outputPath;
     filled.reset();
 
@@ -658,7 +658,7 @@ class LineChartRenderer extends LineRadarRenderer {
 //   HashMap<IDataSet, DataSetImageCache> mImageCaches =  HashMap<>();
 
   /// buffer for drawing the circles
-  List<double> mCirclesBuffer = List(2);
+  List<double> mCirclesBuffer = List.filled(2, 0.0);
   Map<IDataSet, DataSetImageCache> mImageCaches = Map();
 
   void drawCircles(Canvas c) {

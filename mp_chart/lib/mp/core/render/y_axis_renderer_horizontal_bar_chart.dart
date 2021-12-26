@@ -1,18 +1,16 @@
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
 import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
 import 'package:mp_chart/mp/core/enums/limit_label_postion.dart';
 import 'package:mp_chart/mp/core/enums/y_axis_label_position.dart';
 import 'package:mp_chart/mp/core/limit_line.dart';
+import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/utils/canvas_utils.dart';
 import 'package:mp_chart/mp/core/utils/painter_utils.dart';
-import 'package:mp_chart/mp/core/view_port.dart';
-import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/utils/utils.dart';
+import 'package:mp_chart/mp/core/view_port.dart';
 
 class YAxisRendererHorizontalBarChart extends YAxisRenderer {
   YAxisRendererHorizontalBarChart(
@@ -162,7 +160,7 @@ class YAxisRendererHorizontalBarChart extends YAxisRenderer {
   @override
   List<double> getTransformedPositions() {
     if (mGetTransformedPositionsBuffer.length != yAxis.entryCount * 2) {
-      mGetTransformedPositionsBuffer = List(yAxis.entryCount * 2);
+      mGetTransformedPositionsBuffer = List.filled(yAxis.entryCount * 2, 0.0);
     }
     List<double> positions = mGetTransformedPositionsBuffer;
 
@@ -224,7 +222,7 @@ class YAxisRendererHorizontalBarChart extends YAxisRenderer {
   }
 
   Path mRenderLimitLinesPathBuffer = Path();
-  List<double> mRenderLimitLinesBuffer = List(4);
+  List<double> mRenderLimitLinesBuffer = List.filled(4, 0.0);
 
   /// Draws the LimitLines associated with this axis to the screen.
   /// This is the standard XAxis renderer using the YAxis limit lines.

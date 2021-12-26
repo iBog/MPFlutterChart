@@ -140,7 +140,7 @@ class ObjectPool<T extends Poolable> {
           "Object Pool must be instantiated with a capacity greater than 0!");
     }
     this.desiredCapacity = withCapacity;
-    this.objects = List(this.desiredCapacity);
+    this.objects = List.filled(this.desiredCapacity, null);
     this.objectsPointer = 0;
     this.modelObject = object;
     this.replenishPercentage = 1.0;
@@ -256,7 +256,7 @@ class ObjectPool<T extends Poolable> {
   void resizePool() {
     final int oldCapacity = this.desiredCapacity;
     this.desiredCapacity *= 2;
-    List<Object> temp = List(this.desiredCapacity);
+    List<Object> temp = List.filled(this.desiredCapacity, null);
     for (int i = 0; i < oldCapacity; i++) {
       temp[i] = this.objects[i];
     }

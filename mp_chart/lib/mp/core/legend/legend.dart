@@ -11,12 +11,12 @@ import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/legend/legend_entry.dart';
 import 'package:mp_chart/mp/core/poolable/size.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
-import 'package:mp_chart/mp/core/view_port.dart';
 import 'package:mp_chart/mp/core/utils/utils.dart';
+import 'package:mp_chart/mp/core/view_port.dart';
 
 class Legend extends ComponentBase {
   /// The legend entries array
-  List<LegendEntry> _entries = List();
+  List<LegendEntry> _entries = [];
 
   /// Entries that will be appended to the end of the auto calculated entries after calculating the legend.
   /// (if the legend has already been calculated, you will need to call notifyDataSetChanged() to let the changes take effect)
@@ -77,9 +77,9 @@ class Legend extends ComponentBase {
   /// flag that indicates if word wrapping is enabled
   bool _wordWrapEnabled = false;
 
-  List<FSize> _calculatedLabelSizes = List(16);
-  List<bool> _calculatedLabelBreakPoints = List(16);
-  List<FSize> _calculatedLineSizes = List(16);
+  List<FSize> _calculatedLabelSizes = List.filled(16, FSize.getInstance(0, 0));
+  List<bool> _calculatedLabelBreakPoints = List.filled(16, false);
+  List<FSize> _calculatedLineSizes = List.filled(16, FSize.getInstance(0, 0));
 
   /// default constructor
   Legend() {
@@ -164,7 +164,7 @@ class Legend extends ComponentBase {
   /// (if the legend has already been calculated, you will need to call notifyDataSetChanged()
   ///   to let the changes take effect)
   void setExtra2(List<Color> colors, List<String> labels) {
-    List<LegendEntry> entries = List();
+    List<LegendEntry> entries = [];
     for (int i = 0; i < min(colors.length, labels.length); i++) {
       final LegendEntry entry = LegendEntry.empty();
       entry.formColor = colors[i];
@@ -423,9 +423,9 @@ class Legend extends ComponentBase {
           double requiredWidth = 0;
           int stackedStartIndex = -1;
 
-          _calculatedLabelBreakPoints = List();
-          _calculatedLabelSizes = List();
-          _calculatedLineSizes = List();
+          _calculatedLabelBreakPoints = [];
+          _calculatedLabelSizes = [];
+          _calculatedLineSizes = [];
 
           for (int i = 0; i < entryCount; i++) {
             LegendEntry e = entries[i];

@@ -1,8 +1,8 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mp_chart/mp/core/animator.dart';
 import 'package:mp_chart/mp/core/axis/x_axis.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
+import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
 import 'package:mp_chart/mp/core/data/bar_data.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_bar_data_set.dart';
@@ -19,7 +19,6 @@ import 'package:mp_chart/mp/core/render/bar_chart_renderer.dart';
 import 'package:mp_chart/mp/core/render/legend_renderer.dart';
 import 'package:mp_chart/mp/core/render/x_axis_renderer.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
-import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
 import 'package:mp_chart/mp/painter/bar_line_chart_painter.dart';

@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/animator.dart';
@@ -83,7 +81,7 @@ class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
   @override
   void initBuffers() {
     BarData barData = _provider.getBarData();
-    _barBuffers = List(barData.getDataSetCount());
+    _barBuffers = List.filled(barData.getDataSetCount(), null);
 
     for (int i = 0; i < _barBuffers.length; i++) {
       IBarDataSet set = barData.getDataSetByIndex(i);
@@ -191,7 +189,7 @@ class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
         renderPaint
           ..shader = (LinearGradient(
-                  colors: List()
+              colors: []
                     ..add(gradientColor.startColor)
                     ..add(gradientColor.endColor),
                   tileMode: TileMode.mirror))
@@ -205,7 +203,7 @@ class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
       if (dataSet.getGradientColors() != null) {
         renderPaint
           ..shader = (LinearGradient(
-                  colors: List()
+              colors: []
                     ..add(dataSet.getGradientColor2(j ~/ 4).startColor)
                     ..add(dataSet.getGradientColor2(j ~/ 4).endColor),
                   tileMode: TileMode.mirror))
@@ -390,7 +388,7 @@ class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
               // draw stack values
             } else {
-              List<double> transformed = List(vals.length * 2);
+              List<double> transformed = List.filled(vals.length * 2, 0.0);
 
               double posY = 0.0;
               double negY = -entry.negativeSum;

@@ -46,8 +46,8 @@ class BubbleChartRenderer extends BarLineScatterCandleBubbleRenderer {
     }
   }
 
-  List<double> sizeBuffer = List(4);
-  List<double> pointBuffer = List(2);
+  List<double> sizeBuffer = List.filled(4, 0.0);
+  List<double> pointBuffer = List.filled(2, 0.0);
 
   double getShapeSize(
       double entrySize, double maxSize, double reference, bool normalizeSize) {

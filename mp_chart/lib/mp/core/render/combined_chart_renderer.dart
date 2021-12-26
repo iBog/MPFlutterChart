@@ -16,7 +16,7 @@ import 'package:mp_chart/mp/painter/painter.dart';
 
 class CombinedChartRenderer extends DataRenderer {
   /// all rederers for the different kinds of data this combined-renderer can draw
-  List<DataRenderer> _renderers = List<DataRenderer>();
+  List<DataRenderer> _renderers = <DataRenderer>[];
 
   ChartPainter _painter;
 
@@ -90,7 +90,7 @@ class CombinedChartRenderer extends DataRenderer {
     for (DataRenderer renderer in _renderers) renderer.drawExtras(c);
   }
 
-  List<Highlight> mHighlightBuffer = List<Highlight>();
+  List<Highlight> mHighlightBuffer = <Highlight>[];
 
   @override
   void drawHighlighted(Canvas c, List<Highlight> indices) {

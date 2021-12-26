@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
-import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_line_data_set.dart';
 
 class DataSetImageCache {
@@ -19,10 +18,10 @@ class DataSetImageCache {
     bool changeRequired = false;
 
     if (_circleBitmaps == null) {
-      _circleBitmaps = List(size);
+      _circleBitmaps = List.filled(size, null);
       changeRequired = true;
     } else if (_circleBitmaps.length != size) {
-      _circleBitmaps = List(size);
+      _circleBitmaps = List.filled(size, null);
       changeRequired = true;
     }
 

@@ -1,11 +1,10 @@
 import 'dart:math';
-import 'dart:ui';
 
-import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mp_chart/mp/core/animator.dart';
 import 'package:mp_chart/mp/core/axis/x_axis.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
+import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
 import 'package:mp_chart/mp/core/data/bar_data.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_bar_data_set.dart';
@@ -24,7 +23,6 @@ import 'package:mp_chart/mp/core/render/horizontal_bar_chart_renderer.dart';
 import 'package:mp_chart/mp/core/render/legend_renderer.dart';
 import 'package:mp_chart/mp/core/render/x_axis_renderer.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
-import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/utils/utils.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
@@ -214,7 +212,9 @@ class HorizontalBarChartPainter extends BarChartPainter {
 
   @override
   List<double> getMarkerPosition(Highlight high) {
-    return new List()..add(high.drawY)..add(high.drawX);
+    return []
+      ..add(high.drawY)
+      ..add(high.drawX);
   }
 
   @override
@@ -243,7 +243,7 @@ class HorizontalBarChartPainter extends BarChartPainter {
     return getTransformer(set.getAxisDependency()).rectValueToPixel(bounds);
   }
 
-  List<double> mGetPositionBuffer = List(2);
+  List<double> mGetPositionBuffer = List.filled(2, 0.0);
 
   /// Returns a recyclable MPPointF instance.
   ///

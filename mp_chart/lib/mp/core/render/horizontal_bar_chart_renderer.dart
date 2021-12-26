@@ -28,7 +28,7 @@ class HorizontalBarChartRenderer extends BarChartRenderer {
   @override
   void initBuffers() {
     BarData barData = provider.getBarData();
-    barBuffers = List(barData.getDataSetCount());
+    barBuffers = List.filled(barData.getDataSetCount(), null);
 
     for (int i = 0; i < barBuffers.length; i++) {
       IBarDataSet set = barData.getDataSetByIndex(i);
@@ -290,7 +290,7 @@ class HorizontalBarChartRenderer extends BarChartRenderer {
                   c, Offset(px, py), entry.mIcon, Size(15, 15), drawPaint);
             }
           } else {
-            List<double> transformed = List(vals.length * 2);
+            List<double> transformed = List.filled(vals.length * 2, 0.0);
 
             double posY = 0;
             double negY = -entry.negativeSum;

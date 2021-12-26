@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
 import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
@@ -227,7 +225,7 @@ class YAxisRenderer extends AxisRenderer {
     return p;
   }
 
-  List<double> mGetTransformedPositionsBuffer = List(2);
+  List<double> mGetTransformedPositionsBuffer = List.filled(2, 0.0);
 
   /// Transforms the values contained in the axis entries to screen pixels and returns them in form of a double array
   /// of x- and y-coordinates.
@@ -235,7 +233,7 @@ class YAxisRenderer extends AxisRenderer {
   /// @return
   List<double> getTransformedPositions() {
     if (mGetTransformedPositionsBuffer.length != _yAxis.entryCount * 2) {
-      mGetTransformedPositionsBuffer = List(_yAxis.entryCount * 2);
+      mGetTransformedPositionsBuffer = List.filled(_yAxis.entryCount * 2, 0.0);
     }
     List<double> positions = mGetTransformedPositionsBuffer;
 
@@ -283,7 +281,7 @@ class YAxisRenderer extends AxisRenderer {
   }
 
   Path _renderLimitLines = Path();
-  List<double> _renderLimitLinesBuffer = List(2);
+  List<double> _renderLimitLinesBuffer = List.filled(2, 0.0);
   Rect _limitLineClippingRect = Rect.zero;
 
   // ignore: unnecessary_getters_setters

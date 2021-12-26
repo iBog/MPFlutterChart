@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/axis/axis_base.dart';
 import 'package:mp_chart/mp/core/poolable/point.dart';
@@ -138,8 +136,8 @@ abstract class AxisRenderer extends Renderer {
     double range = (yMax - yMin).abs();
 
     if (labelCount == 0 || range <= 0 || range.isInfinite) {
-      _axis.entries = List<double>();
-      _axis.centeredEntries = List<double>();
+      _axis.entries = <double>[];
+      _axis.centeredEntries = <double>[];
       _axis.entryCount = 0;
       return;
     }
@@ -176,7 +174,7 @@ abstract class AxisRenderer extends Renderer {
 
       if (_axis.entries.length < labelCount) {
         // Ensure stops contains at least numStops elements.
-        _axis.entries = List(labelCount);
+        _axis.entries = List.filled(labelCount, 0.0);
       }
 
       double v = min;
@@ -213,7 +211,7 @@ abstract class AxisRenderer extends Renderer {
 
       if (_axis.entries.length < num) {
         // Ensure stops contains at least numStops elements.
-        _axis.entries = List(num);
+        _axis.entries = List.filled(num, 0.0);
       }
 
       i = 0;
@@ -235,7 +233,7 @@ abstract class AxisRenderer extends Renderer {
 
     if (_axis.isCenterAxisLabelsEnabled()) {
       if (_axis.centeredEntries.length < num) {
-        _axis.centeredEntries = List(num);
+        _axis.centeredEntries = List.filled(num, 0.0);
       }
 
       int offset = interval ~/ 2;

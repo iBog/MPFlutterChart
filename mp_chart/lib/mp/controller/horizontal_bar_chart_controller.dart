@@ -1,7 +1,7 @@
-import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mp_chart/mp/controller/bar_chart_controller.dart';
 import 'package:mp_chart/mp/core/axis/y_axis.dart';
+import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
 import 'package:mp_chart/mp/core/description.dart';
 import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
@@ -13,7 +13,6 @@ import 'package:mp_chart/mp/core/render/x_axis_renderer_horizontal_bar_chart.dar
 import 'package:mp_chart/mp/core/render/y_axis_renderer.dart';
 import 'package:mp_chart/mp/core/render/y_axis_renderer_horizontal_bar_chart.dart';
 import 'package:mp_chart/mp/core/touch_listener.dart';
-import 'package:mp_chart/mp/core/chart_trans_listener.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/transformer/transformer_horizontal_bar_chart.dart';
 import 'package:mp_chart/mp/core/view_port.dart';

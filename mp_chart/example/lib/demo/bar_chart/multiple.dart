@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:mp_chart/mp/controller/bar_chart_controller.dart';
-import 'package:mp_chart/mp/core/common_interfaces.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/bar_chart.dart';
+import 'package:mp_chart/mp/controller/bar_chart_controller.dart';
+import 'package:mp_chart/mp/core/common_interfaces.dart';
 import 'package:mp_chart/mp/core/data/bar_data.dart';
 import 'package:mp_chart/mp/core/data_set/bar_data_set.dart';
 import 'package:mp_chart/mp/core/description.dart';
@@ -18,8 +20,6 @@ import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/large_value_formatter.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 
 class BarChartMultiple extends StatefulWidget {
   @override
@@ -194,7 +194,7 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
   bool isDataInitial = false;
 
   void _initBarData(int count, double range) async {
-    List<ui.Image> imgs = List(3);
+    List<ui.Image> imgs = [];
     imgs[0] = await ImageLoader.loadImage('assets/img/star.png');
     imgs[1] = await ImageLoader.loadImage('assets/img/add.png');
     imgs[2] = await ImageLoader.loadImage('assets/img/close.png');
@@ -202,10 +202,10 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
     startYear = 1980;
     endYear = startYear + groupCount;
 
-    List<BarEntry> values1 = List();
-    List<BarEntry> values2 = List();
-    List<BarEntry> values3 = List();
-    List<BarEntry> values4 = List();
+    List<BarEntry> values1 = [];
+    List<BarEntry> values2 = [];
+    List<BarEntry> values3 = [];
+    List<BarEntry> values4 = [];
 
     double randomMultiplier = range * 100000;
 
@@ -238,8 +238,11 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
     set4 = BarDataSet(values4, "Company D");
     set4.setColor1(Color.fromARGB(255, 255, 102, 0));
 
-    controller.data =
-        BarData(List()..add(set1)..add(set2)..add(set3)..add(set4));
+    controller.data = BarData([]
+      ..add(set1)
+      ..add(set2)
+      ..add(set3)
+      ..add(set4));
     controller.data
       ..setValueFormatter(LargeValueFormatter())
       ..setValueTypeface(Util.LIGHT)

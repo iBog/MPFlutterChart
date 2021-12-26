@@ -59,14 +59,14 @@ class LegendRenderer extends Renderer {
     _legendLabelPaint = value;
   }
 
-  List<LegendEntry> _computedEntries = List(16);
+  List<LegendEntry> _computedEntries = List.filled(16, null);
 
   /// Prepares the legend and calculates all needed forms, labels and colors.
   ///
   /// @param data
   void computeLegend(ChartData<IDataSet> data) {
     if (!_legend.isLegendCustom) {
-      _computedEntries = List();
+      _computedEntries = [];
 
       // loop for building up the colors and labels used in the legend
       for (int i = 0; i < data.getDataSetCount(); i++) {
@@ -183,7 +183,8 @@ class LegendRenderer extends Renderer {
   TextPainter getLabelPainter() {
     var fontFamily = _legend.typeface?.fontFamily;
     var fontWeight = _legend.typeface?.fontWeight;
-    return PainterUtils.create(_legendLabelPaint, null, _legend.textColor, _legend.textSize,
+    return PainterUtils.create(
+        _legendLabelPaint, null, _legend.textColor, _legend.textSize,
         fontFamily: fontFamily, fontWeight: fontWeight);
   }
 

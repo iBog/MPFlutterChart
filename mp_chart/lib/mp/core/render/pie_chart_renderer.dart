@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/animator.dart';
@@ -42,7 +40,7 @@ class PieChartRenderer extends DataRenderer {
 
   // ignore: unused_field
   Rect _centerTextLastBounds = Rect.zero;
-  List<Rect> _rectBuffer = List()
+  List<Rect> _rectBuffer = []
     ..add(Rect.zero)
     ..add(Rect.zero)
     ..add(Rect.zero);
@@ -831,7 +829,9 @@ class PieChartRenderer extends DataRenderer {
 
       c.save();
 
-      _centerTextPaint = PainterUtils.create(_centerTextPaint, centerText,
+      _centerTextPaint = PainterUtils.create(
+          _centerTextPaint,
+          centerText,
           _painter.centerTextColor ?? ColorUtils.BLACK,
           _painter.centerTextSize ?? Utils.convertDpToPixel(12),
           fontFamily: _painter.centerTextTypeface?.fontFamily,
