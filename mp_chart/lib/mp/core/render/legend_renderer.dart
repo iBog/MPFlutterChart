@@ -59,7 +59,7 @@ class LegendRenderer extends Renderer {
     _legendLabelPaint = value;
   }
 
-  List<LegendEntry> _computedEntries = List.filled(16, null);
+  List<LegendEntry> _computedEntries = List.filled(16, LegendEntry.empty());
 
   /// Prepares the legend and calculates all needed forms, labels and colors.
   ///

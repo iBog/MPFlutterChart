@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/painting.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/animator.dart';
@@ -81,7 +82,8 @@ class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
   @override
   void initBuffers() {
     BarData barData = _provider.getBarData();
-    _barBuffers = List.filled(barData.getDataSetCount(), null);
+    _barBuffers =
+        List.filled(barData.getDataSetCount(), BarBuffer(0, 0, false));
 
     for (int i = 0; i < _barBuffers.length; i++) {
       IBarDataSet set = barData.getDataSetByIndex(i);

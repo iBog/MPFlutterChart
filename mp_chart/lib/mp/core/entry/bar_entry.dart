@@ -1,6 +1,6 @@
-import 'package:mp_chart/mp/core/entry/entry.dart';
 import 'dart:ui' as ui;
 
+import 'package:mp_chart/mp/core/entry/entry.dart';
 import 'package:mp_chart/mp/core/range.dart';
 
 class BarEntry extends Entry {
@@ -105,17 +105,12 @@ class BarEntry extends Entry {
 
   void calcRanges() {
     List<double> values = yVals;
-
     if (values == null || values.length == 0) return;
-
-    _ranges = List.filled(values.length, null);
-
+    _ranges = List.filled(values.length, Range(0.0, 0.0));
     double negRemain = -negativeSum;
     double posRemain = 0.0;
-
     for (int i = 0; i < _ranges.length; i++) {
       double value = values[i];
-
       if (value < 0) {
         _ranges[i] = Range(negRemain, negRemain - value);
         negRemain -= value;

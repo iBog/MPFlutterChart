@@ -11,14 +11,14 @@ import 'package:mp_chart/mp/core/data_provider/bar_data_provider.dart';
 import 'package:mp_chart/mp/core/data_provider/chart_interface.dart';
 import 'package:mp_chart/mp/core/entry/bar_entry.dart';
 import 'package:mp_chart/mp/core/highlight/highlight.dart';
+import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/bar_chart_renderer.dart';
 import 'package:mp_chart/mp/core/transformer/transformer.dart';
 import 'package:mp_chart/mp/core/utils/canvas_utils.dart';
 import 'package:mp_chart/mp/core/utils/painter_utils.dart';
+import 'package:mp_chart/mp/core/utils/utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
-import 'package:mp_chart/mp/core/poolable/point.dart';
-import 'package:mp_chart/mp/core/utils/utils.dart';
 
 class HorizontalBarChartRenderer extends BarChartRenderer {
   HorizontalBarChartRenderer(
@@ -28,7 +28,8 @@ class HorizontalBarChartRenderer extends BarChartRenderer {
   @override
   void initBuffers() {
     BarData barData = provider.getBarData();
-    barBuffers = List.filled(barData.getDataSetCount(), null);
+    barBuffers = List.filled(
+        barData.getDataSetCount(), HorizontalBarBuffer(0, 0, false));
 
     for (int i = 0; i < barBuffers.length; i++) {
       IBarDataSet set = barData.getDataSetByIndex(i);

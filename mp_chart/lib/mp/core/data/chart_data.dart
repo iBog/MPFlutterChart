@@ -1,5 +1,6 @@
 import 'dart:ui' as ui;
 
+import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/data_interfaces/i_data_set.dart';
 import 'package:mp_chart/mp/core/entry/entry.dart';
@@ -467,7 +468,7 @@ class ChartData<T extends IDataSet<Entry>> {
       clrcnt += _dataSets[i].getColors().length;
     }
 
-    List<ui.Color> colors = List.filled(clrcnt, null);
+    List<ui.Color> colors = List.filled(clrcnt, Colors.black);
     int cnt = 0;
 
     for (int i = 0; i < _dataSets.length; i++) {
