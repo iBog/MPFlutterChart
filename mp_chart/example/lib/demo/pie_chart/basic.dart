@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/pie_chart.dart';
 import 'package:mp_chart/mp/controller/pie_chart_controller.dart';
@@ -20,6 +18,8 @@ import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/render/pie_chart_renderer.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/percent_formatter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class PieChartBasic extends StatefulWidget {
   @override
@@ -131,7 +131,7 @@ class PieChartBasicState extends PieActionState<PieChartBasic>
   }
 
   // ignore: non_constant_identifier_names
-  final List<String> PARTIES = []
+  final List<String> PARTIES = <String>[]
     ..add("Party A")
     ..add("Party B")
     ..add("Party C")
@@ -165,8 +165,8 @@ class PieChartBasicState extends PieActionState<PieChartBasic>
       ..enabled = true;
     controller = PieChartController(
         legendSettingFunction: (legend, controller) {
-          _formatter.setPieChartPainter(controller);
-          legend
+          _formatter.setPieChartPainter(controller as PieChartController);
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
             ..orientation = (LegendOrientation.VERTICAL)
@@ -232,7 +232,7 @@ class PieChartBasicState extends PieActionState<PieChartBasic>
     dataSet.setColors1(colors);
 
     controller.data = PieData(dataSet);
-    controller.data
+    controller.data!
       ..setValueFormatter(_formatter)
       ..setValueTextSize(11)
       ..setValueTextColor(ColorUtils.WHITE)
@@ -245,7 +245,7 @@ class PieChartBasicState extends PieActionState<PieChartBasic>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 
   String _generateCenterSpannableText() {
     return "basic pie chart";

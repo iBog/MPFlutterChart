@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/scatter_chart.dart';
 import 'package:mp_chart/mp/controller/scatter_chart_controller.dart';
@@ -21,6 +19,8 @@ import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/render/i_shape_renderer.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/view_port.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class OtherChartScatterPlot extends StatefulWidget {
   @override
@@ -135,15 +135,15 @@ class OtherChartScatterPlotState
     var desc = Description()..enabled = false;
     controller = ScatterChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..setAxisMinimum(0)
             ..typeface = Util.LIGHT;
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
             ..orientation = (LegendOrientation.VERTICAL)
@@ -152,7 +152,7 @@ class OtherChartScatterPlotState
             ..xOffset = (5);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..drawGridLines = (false)
             ..typeface = Util.LIGHT;
         },
@@ -169,10 +169,10 @@ class OtherChartScatterPlotState
   }
 
   void _initScatterData(int count, double range) async {
-    List<ui.Image> imgs = [];
-    imgs.insert(0, await ImageLoader.loadImage('assets/img/star.png'));
-    imgs.insert(1, await ImageLoader.loadImage('assets/img/add.png'));
-    imgs.insert(2, await ImageLoader.loadImage('assets/img/close.png'));
+    List<ui.Image?> imgs = []..length =(3);
+    imgs[0] = await ImageLoader.loadImage('assets/img/star.png');
+    imgs[1] = await ImageLoader.loadImage('assets/img/add.png');
+    imgs[2] = await ImageLoader.loadImage('assets/img/close.png');
 
     List<Entry> values1 = [];
     List<Entry> values2 = [];
@@ -217,7 +217,7 @@ class OtherChartScatterPlotState
 
     // create a data object with the data sets
     controller.data = ScatterData.fromList(dataSets);
-    controller.data.setValueTypeface(Util.LIGHT);
+    controller.data!.setValueTypeface(Util.LIGHT);
 
     setState(() {});
   }
@@ -226,7 +226,7 @@ class OtherChartScatterPlotState
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 }
 
 class CustomScatterShapeRenderer implements IShapeRenderer {
@@ -234,13 +234,13 @@ class CustomScatterShapeRenderer implements IShapeRenderer {
   void renderShape(
       Canvas c,
       IScatterDataSet dataSet,
-      ViewPortHandler viewPortHandler,
-      double posX,
-      double posY,
-      Paint renderPaint) {
+      ViewPortHandler? viewPortHandler,
+      double? posX,
+      double? posY,
+      Paint? renderPaint) {
     final double shapeHalf = dataSet.getScatterShapeSize() / 2;
 
-    c.drawLine(Offset(posX - shapeHalf, posY - shapeHalf),
-        Offset(posX + shapeHalf, posY + shapeHalf), renderPaint);
+    c.drawLine(Offset(posX! - shapeHalf, posY! - shapeHalf),
+        Offset(posX + shapeHalf, posY + shapeHalf), renderPaint!);
   }
 }

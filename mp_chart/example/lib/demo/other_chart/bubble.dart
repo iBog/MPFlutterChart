@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/bubble_chart.dart';
 import 'package:mp_chart/mp/controller/bubble_chart_controller.dart';
@@ -21,6 +19,8 @@ import 'package:mp_chart/mp/core/highlight/highlight.dart';
 import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/poolable/point.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class OtherChartBubble extends StatefulWidget {
   @override
@@ -134,17 +134,17 @@ class OtherChartBubbleState extends BubbleActionState<OtherChartBubble>
     var desc = Description()..enabled = false;
     controller = BubbleChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..spacePercentTop = (30)
             ..spacePercentBottom = (30)
             ..typeface = Util.LIGHT
             ..setDrawZeroLine(false);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..typeface = Util.LIGHT
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
@@ -152,7 +152,7 @@ class OtherChartBubbleState extends BubbleActionState<OtherChartBubble>
             ..drawInside = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..position = (XAxisPosition.BOTTOM)
             ..typeface = Util.LIGHT;
         },
@@ -168,10 +168,10 @@ class OtherChartBubbleState extends BubbleActionState<OtherChartBubble>
   }
 
   void _initBubbleData(int count, double range) async {
-    List<ui.Image> imgs = [];
-    imgs.insert(0, await ImageLoader.loadImage('assets/img/star.png'));
-    imgs.insert(1, await ImageLoader.loadImage('assets/img/add.png'));
-    imgs.insert(2, await ImageLoader.loadImage('assets/img/close.png'));
+    List<ui.Image?> imgs = []..length =(3);
+    imgs[0] = await ImageLoader.loadImage('assets/img/star.png');
+    imgs[1] = await ImageLoader.loadImage('assets/img/add.png');
+    imgs[2] = await ImageLoader.loadImage('assets/img/close.png');
     List<BubbleEntry> values1 = [];
     List<BubbleEntry> values2 = [];
     List<BubbleEntry> values3 = [];
@@ -217,7 +217,7 @@ class OtherChartBubbleState extends BubbleActionState<OtherChartBubble>
 
     // create a data object with the data sets
     controller.data = BubbleData.fromList(dataSets);
-    controller.data
+    controller.data!
       ..setDrawValues(false)
       ..setValueTypeface(Util.LIGHT)
       ..setValueTextSize(8)
@@ -231,5 +231,5 @@ class OtherChartBubbleState extends BubbleActionState<OtherChartBubble>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 }

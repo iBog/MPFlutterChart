@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/line_chart.dart';
 import 'package:mp_chart/mp/controller/line_chart_controller.dart';
@@ -13,6 +12,7 @@ import 'package:mp_chart/mp/core/enums/legend_form.dart';
 import 'package:mp_chart/mp/core/highlight/highlight.dart';
 import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
 
 class LineChartInvertAxis extends StatefulWidget {
   @override
@@ -46,7 +46,7 @@ class LineChartInvertAxisState extends LineActionState<LineChartInvertAxis>
             left: 0,
             top: 0,
             bottom: 100,
-            child: LineChart(controller)),
+            child: LineChart(controller!)),
         Positioned(
           left: 0,
           right: 0,
@@ -126,24 +126,24 @@ class LineChartInvertAxisState extends LineActionState<LineChartInvertAxis>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 
   void _initController() {
     var desc = Description()..enabled = false;
     controller = LineChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..setAxisMinimum(0)
             ..inverted = (true);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend.shape = (LegendForm.LINE);
+          legend!.shape = (LegendForm.LINE);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..avoidFirstLastClipping = (true)
             ..setAxisMinimum(0);
         },
@@ -169,7 +169,7 @@ class LineChartInvertAxisState extends LineActionState<LineChartInvertAxis>
 
     // sort by x-value
     entries.sort((entry1, entry2) {
-      double diff = entry1.x - entry2.x;
+      double diff = entry1.x! - entry2.x!;
 
       if (diff == 0)
         return 0;
@@ -187,7 +187,7 @@ class LineChartInvertAxisState extends LineActionState<LineChartInvertAxis>
     set1.setCircleRadius(4);
 
     // create a data object with the data sets
-    controller.data = LineData.fromList([]..add(set1));
+    controller!.data = LineData.fromList(<LineDataSet>[]..add(set1));
 
     setState(() {});
   }

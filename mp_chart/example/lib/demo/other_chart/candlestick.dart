@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/candlestick_chart.dart';
 import 'package:mp_chart/mp/controller/candlestick_chart_controller.dart';
@@ -12,6 +11,7 @@ import 'package:mp_chart/mp/core/enums/axis_dependency.dart';
 import 'package:mp_chart/mp/core/enums/x_axis_position.dart';
 import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
 
 class OtherChartCandlestick extends StatefulWidget {
   @override
@@ -130,19 +130,19 @@ class OtherChartCandlestickState
     var desc = Description()..enabled = false;
     controller = CandlestickChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..setLabelCount2(7, false)
             ..drawGridLines = (false)
             ..drawAxisLine = (false);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend.enabled = (false);
+          legend!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..position = (XAxisPosition.BOTTOM)
             ..drawGridLines = (true);
         },
@@ -198,7 +198,7 @@ class OtherChartCandlestickState
     set1.setNeutralColor(ColorUtils.BLUE);
     //set1.setHighlightLineWidth(1f);
 
-    controller.data = CandleData.fromList([]..add(set1));
+    controller.data = CandleData.fromList(<CandleDataSet>[]..add(set1));
 
     setState(() {});
   }

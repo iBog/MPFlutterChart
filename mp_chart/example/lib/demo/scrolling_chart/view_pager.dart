@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/bar_chart.dart';
 import 'package:mp_chart/mp/chart/line_chart.dart';
@@ -32,6 +30,8 @@ import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/enums/scatter_shape.dart';
 import 'package:mp_chart/mp/core/enums/x_axis_position.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class ScrollingChartViewPager extends StatefulWidget {
   @override
@@ -42,11 +42,11 @@ class ScrollingChartViewPager extends StatefulWidget {
 
 class ScrollingChartViewPagerState
     extends SimpleActionState<ScrollingChartViewPager> {
-  LineChartController _lineChartController1;
-  LineChartController _lineChartController2;
-  BarChartController _barChartController;
-  ScatterChartController _scatterChartController;
-  PieChartController _pieChartController;
+  late LineChartController _lineChartController1;
+  late LineChartController _lineChartController2;
+  late BarChartController _barChartController;
+  late ScatterChartController _scatterChartController;
+  late PieChartController _pieChartController;
   var random = Random(1);
 
   @override
@@ -146,15 +146,15 @@ class ScrollingChartViewPagerState
     _lineChartController1 = LineChartController(
         resolveGestureHorizontalConflict: true,
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..setAxisMaximum(1.2)
             ..setAxisMinimum(-1.2);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis.enabled = (false);
+          xAxis!.enabled = (false);
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -165,10 +165,10 @@ class ScrollingChartViewPagerState
 
     _lineChartController2 = LineChartController(
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis.enabled = (false);
+          xAxis!.enabled = (false);
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -180,13 +180,13 @@ class ScrollingChartViewPagerState
     _barChartController = BarChartController(
         resolveGestureHorizontalConflict: true,
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft.setAxisMinimum(0);
+          axisLeft!.setAxisMinimum(0);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis.enabled = (false);
+          xAxis!.enabled = (false);
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -199,17 +199,17 @@ class ScrollingChartViewPagerState
     _scatterChartController = ScatterChartController(
         resolveGestureHorizontalConflict: true,
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.drawGridLines = (false);
+          axisRight!.drawGridLines = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..wordWrapEnabled = (true)
             ..formSize = (14)
             ..textSize = (9)
             ..yOffset = (13);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis.position = (XAxisPosition.BOTTOM);
+          xAxis!.position = (XAxisPosition.BOTTOM);
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -222,7 +222,7 @@ class ScrollingChartViewPagerState
     _pieChartController = PieChartController(
         resolveGestureHorizontalConflict: true,
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
             ..orientation = (LegendOrientation.VERTICAL)
@@ -376,7 +376,7 @@ class ScrollingChartViewPagerState
     });
   }
 
-  List<String> _labels = []
+  List<String> _labels = <String>[]
     ..add("Company A")
     ..add("Company B")
     ..add("Company C")
@@ -455,7 +455,7 @@ class ScrollingChartViewPagerState
 
   Widget _initLineChart1() {
     var lineChart = LineChart(_lineChartController1);
-    _lineChartController1.animator
+    _lineChartController1.animator!
       ..reset()
       ..animateX1(3000);
     return lineChart;
@@ -463,7 +463,7 @@ class ScrollingChartViewPagerState
 
   Widget _initLineChart2() {
     var lineChart = LineChart(_lineChartController2);
-    _lineChartController2.animator
+    _lineChartController2.animator!
       ..reset()
       ..animateX1(3000);
     return lineChart;

@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/bar_chart.dart';
 import 'package:mp_chart/mp/controller/bar_chart_controller.dart';
@@ -14,6 +12,8 @@ import 'package:mp_chart/mp/core/enums/legend_horizontal_alignment.dart';
 import 'package:mp_chart/mp/core/enums/legend_orientation.dart';
 import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class BarChartSine extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class BarChartSine extends StatefulWidget {
 }
 
 class BarChartSineState extends BarActionState<BarChartSine> {
-  List<BarEntry> _data;
+  List<BarEntry>? _data;
   var random = Random(1);
   int _count = 150;
 
@@ -37,7 +37,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
         var datas = lines[i].split("#");
         var x = double.parse(datas[1]);
         var y = double.parse(datas[0]);
-        _data.add(BarEntry(x: x, y: y));
+        _data!.add(BarEntry(x: x, y: y));
       }
       _initBarData(_count);
     });
@@ -108,7 +108,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
     var desc = Description()..enabled = false;
     controller = BarChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..setLabelCount2(6, false)
             ..typeface = Util.LIGHT
             ..setAxisMaximum(2.5)
@@ -117,7 +117,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
             ..setGranularity(0.1);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight
+          axisRight!
             ..drawGridLines = (false)
             ..typeface = Util.LIGHT
             ..setLabelCount2(6, false)
@@ -126,7 +126,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
             ..setGranularity(0.1);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.BOTTOM)
             ..horizontalAlignment = (LegendHorizontalAlignment.LEFT)
             ..orientation = (LegendOrientation.HORIZONTAL)
@@ -137,7 +137,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
             ..xEntrySpace = (4);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis.enabled = (false);
+          xAxis!.enabled = (false);
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -156,14 +156,14 @@ class BarChartSineState extends BarActionState<BarChartSine> {
 
     List<BarEntry> entries = [];
     for (int i = 0; i < count; i++) {
-      entries.add(_data[i]);
+      entries.add(_data![i]);
     }
 
     BarDataSet set = BarDataSet(entries, "Sinus Function");
     set.setColor1(Color.fromARGB(255, 240, 120, 124));
 
-    controller.data = BarData([]..add(set));
-    controller.data
+    controller.data = BarData(<BarDataSet>[]..add(set));
+    controller.data!
       ..setValueTextSize(10)
       ..setValueTypeface(Util.LIGHT)
       ..setDrawValues(false)
@@ -174,7 +174,7 @@ class BarChartSineState extends BarActionState<BarChartSine> {
 
   Widget _initBarChart() {
     var barChart = BarChart(controller);
-    controller.animator
+    controller.animator!
       ..reset()
       ..animateXY1(1500, 1500);
     return barChart;

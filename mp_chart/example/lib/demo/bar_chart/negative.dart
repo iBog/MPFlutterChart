@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mp_chart/mp/chart/bar_chart.dart';
@@ -13,6 +11,8 @@ import 'package:mp_chart/mp/core/entry/bar_entry.dart';
 import 'package:mp_chart/mp/core/enums/x_axis_position.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class BarChartNegative extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class BarChartNegative extends StatefulWidget {
 }
 
 class BarChartNegativeState extends SimpleActionState<BarChartNegative> {
-  BarChartController _controller;
+  late BarChartController _controller;
   List<Data> _data = [];
 
   @override
@@ -82,8 +82,8 @@ class BarChartNegativeState extends SimpleActionState<BarChartNegative> {
     set.setColors1(colors);
     set.setValueTextColors(colors);
 
-    _controller.data = BarData([]..add(set));
-    _controller.data
+    _controller.data = BarData(<BarDataSet>[]..add(set));
+    _controller.data!
       ..setValueTextSize(13)
       ..setValueTypeface(Util.REGULAR)
       ..setValueFormatter(Formatter())
@@ -94,7 +94,7 @@ class BarChartNegativeState extends SimpleActionState<BarChartNegative> {
     var desc = Description()..enabled = false;
     _controller = BarChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..drawLabels = (false)
             ..spacePercentTop = (25)
             ..spacePercentBottom = (25)
@@ -105,13 +105,13 @@ class BarChartNegativeState extends SimpleActionState<BarChartNegative> {
             ..zeroLineWidth = 0.7;
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend.enabled = (false);
+          legend!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..position = (XAxisPosition.BOTTOM)
             ..typeface = Util.LIGHT
             ..drawGridLines = (false)
@@ -145,8 +145,8 @@ class A extends ValueFormatter {
   A(this._data) : super();
 
   @override
-  String getFormattedValue1(double value) {
-    return _data[min(max(value.toInt(), 0), _data.length - 1)].xAxisValue;
+  String getFormattedValue1(double? value) {
+    return _data[min(max(value!.toInt(), 0), _data.length - 1)].xAxisValue;
   }
 }
 
@@ -159,14 +159,14 @@ class Data {
 }
 
 class Formatter extends ValueFormatter {
-  NumberFormat _format;
+  late NumberFormat _format;
 
   Formatter() : super() {
     _format = NumberFormat("######.0");
   }
 
   @override
-  String getFormattedValue1(double value) {
+  String getFormattedValue1(double? value) {
     return _format.format(value);
   }
 }

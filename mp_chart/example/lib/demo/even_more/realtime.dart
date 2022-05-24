@@ -26,7 +26,7 @@ class EvenMoreRealtime extends StatefulWidget {
 
 class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
     implements OnChartValueSelectedListener {
-  LineChartController controller;
+  LineChartController? controller;
   var random = Random(1);
   var isMultipleRun = false;
 
@@ -45,7 +45,7 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
           left: 0,
           top: 0,
           bottom: 0,
-          child: LineChart(controller),
+          child: LineChart(controller!),
         ),
       ],
     );
@@ -53,14 +53,15 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
 
   @override
   getBuilder() {
-    return (BuildContext context) => <PopupMenuItem<String>>[
-          item('View on GitHub', 'A'),
-          item('Add Entry', 'B'),
-          item('Clear Chart', 'C'),
-          item('Add Multiple', 'D'),
-          item('Save to Gallery', 'E'),
-          item('Update Random Single Entry', 'F'),
-        ];
+    return (BuildContext context) =>
+    <PopupMenuItem<String>>[
+      item('View on GitHub', 'A') as PopupMenuItem<String>,
+      item('Add Entry', 'B') as PopupMenuItem<String>,
+      item('Clear Chart', 'C') as PopupMenuItem<String>,
+      item('Add Multiple', 'D') as PopupMenuItem<String>,
+      item('Save to Gallery', 'E') as PopupMenuItem<String>,
+      item('Update Random Single Entry', 'F') as PopupMenuItem<String>,
+    ];
   }
 
   @override
@@ -70,7 +71,7 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
 
   @override
   void itemClick(String action) {
-    if (controller.state == null) {
+    if (controller!.state == null) {
       return;
     }
 
@@ -80,19 +81,19 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
         break;
       case 'B':
         _addEntry();
-        controller.state.setStateIfNotDispose();
+        controller!.state!.setStateIfNotDispose();
         break;
       case 'C':
         _clearChart();
-        controller.state.setStateIfNotDispose();
+        controller!.state!.setStateIfNotDispose();
         break;
       case 'D':
         _addMultiple();
-        controller.state.setStateIfNotDispose();
+        controller!.state!.setStateIfNotDispose();
         break;
       case 'E':
         captureImg(() {
-          controller.state.capture();
+          controller!.state!.capture();
         });
         break;
       case 'F':
@@ -102,16 +103,17 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
   }
 
   void _initController() {
-    var desc = Description()..enabled = false;
+    var desc = Description()
+      ..enabled = false;
     controller = LineChartController(
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..shape = LegendForm.LINE
             ..typeface = Util.LIGHT
             ..textColor = ColorUtils.WHITE;
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..typeface = Util.LIGHT
             ..textColor = ColorUtils.WHITE
             ..drawGridLines = true
@@ -119,7 +121,7 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
             ..enabled = true;
         },
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..typeface = Util.LIGHT
             ..textColor = ColorUtils.WHITE
             ..axisMaximum = 100.0
@@ -127,7 +129,7 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
             ..drawGridLines = true;
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = false;
+          axisRight!.enabled = false;
         },
         drawGridBackground: false,
         dragXEnabled: true,
@@ -139,11 +141,11 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
         pinchZoomEnabled: true,
         description: desc);
 
-    LineData data = controller?.data;
+    LineData? data = controller?.data;
 
     if (data == null) {
       data = LineData();
-      controller.data = data;
+      controller!.data = data;
     }
   }
 
@@ -151,13 +153,13 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 
   void _addEntry() {
-    LineData data = controller.data;
+    LineData? data = controller!.data;
 
     if (data != null) {
-      ILineDataSet set = data.getDataSetByIndex(0);
+      ILineDataSet? set = data.getDataSetByIndex(0);
       // set.addEntry(...); // can be called as well
 
       if (set == null) {
@@ -173,21 +175,21 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
       data.notifyDataChanged();
 
       // limit the number of visible entries
-      controller.setVisibleXRangeMaximum(120);
+      controller!.setVisibleXRangeMaximum(120);
       // chart.setVisibleYRange(30, AxisDependency.LEFT);
 
       // move to the latest entry
-      controller.moveViewToX(data.getEntryCount().toDouble());
+      controller!.moveViewToX(data.getEntryCount().toDouble());
 
-      controller.state?.setStateIfNotDispose();
+      controller!.state?.setStateIfNotDispose();
     }
   }
 
-  void _updateEntry() {
-    LineData data = controller.data;
+  void _updateEntry(){
+    LineData? data = controller!.data;
 
     if (data != null) {
-      ILineDataSet set = data.getDataSetByIndex(0);
+      ILineDataSet? set = data.getDataSetByIndex(0);
       // set.addEntry(...); // can be called as well
 
       if (set == null) {
@@ -195,32 +197,32 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
         data.addDataSet(set);
       }
 
-      if (set.getEntryCount() == 0) {
+      if(set.getEntryCount() == 0){
         return;
       }
 
       //for test ChartData's updateEntryByIndex
       var index = (random.nextDouble() * set.getEntryCount()).toInt();
-      var x = set.getEntryForIndex(index).x;
-      data.updateEntryByIndex(
-          index, Entry(x: x, y: (random.nextDouble() * 40) + 30.0), 0);
+      var x =  set.getEntryForIndex(index)!.x;
+      data.updateEntryByIndex(index, Entry(x: x,
+          y: (random.nextDouble() * 40) + 30.0), 0);
 
       data.notifyDataChanged();
 
       // limit the number of visible entries
-      controller.setVisibleXRangeMaximum(120);
+      controller!.setVisibleXRangeMaximum(120);
       // chart.setVisibleYRange(30, AxisDependency.LEFT);
 
       // move to the latest entry
-      controller.moveViewToX(data.getEntryCount().toDouble());
+      controller!.moveViewToX(data.getEntryCount().toDouble());
 
-      controller.state?.setStateIfNotDispose();
+      controller!.state?.setStateIfNotDispose();
     }
   }
 
   void _clearChart() {
-    controller.data?.clearValues();
-    controller.state?.setStateIfNotDispose();
+    controller!.data?.clearValues();
+    controller!.state?.setStateIfNotDispose();
   }
 
   void _addMultiple() {
@@ -240,7 +242,7 @@ class EvenMoreRealtimeState extends ActionState<EvenMoreRealtime>
   }
 
   LineDataSet _createSet() {
-    LineDataSet set = LineDataSet(null, "Dynamic Data");
+    LineDataSet set = LineDataSet([], "Dynamic Data");
     set.setAxisDependency(AxisDependency.LEFT);
     set.setColor1(ColorUtils.getHoloBlue());
     set.setCircleColor(ColorUtils.WHITE);

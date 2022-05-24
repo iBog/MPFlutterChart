@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:example/demo/action_state.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/line_chart.dart';
 import 'package:mp_chart/mp/controller/line_chart_controller.dart';
@@ -17,6 +16,7 @@ import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/highlight/highlight.dart';
 import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
+import 'package:example/demo/action_state.dart';
 
 class LineChartMultiple extends StatefulWidget {
   @override
@@ -31,7 +31,7 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
   int _count = 20;
   double _range = 100.0;
 
-  List<Color> colors = []
+  List<Color> colors = <Color>[]
     ..add(ColorUtils.VORDIPLOM_COLORS[0])
     ..add(ColorUtils.VORDIPLOM_COLORS[1])
     ..add(ColorUtils.VORDIPLOM_COLORS[2]);
@@ -62,9 +62,9 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {
+  void onValueSelected(Entry? e, Highlight? h) {
     print(
-        "VAL SELECTED Value: ${e.y}, xIndex: ${e.x}, DataSet index: ${h.dataSetIndex}");
+        "VAL SELECTED Value: ${e!.y}, xIndex: ${e.x}, DataSet index: ${h!.dataSetIndex}");
   }
 
   @override
@@ -86,7 +86,7 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
             left: 0,
             top: 0,
             bottom: 100,
-            child: LineChart(controller)),
+            child: LineChart(controller!)),
         Positioned(
           left: 0,
           right: 0,
@@ -166,22 +166,22 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
     var desc = Description()..enabled = false;
     controller = LineChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft.enabled = (false);
+          axisLeft!.enabled = (false);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight
+          axisRight!
             ..drawAxisLine = (false)
             ..drawGridLines = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
             ..orientation = (LegendOrientation.VERTICAL)
             ..drawInside = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..drawAxisLine = (false)
             ..drawGridLines = (false);
         },
@@ -198,10 +198,10 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
   }
 
   void _initLineData(int count, double range) async {
-    List<ui.Image> imgs = [];
-    imgs.insert(0, await ImageLoader.loadImage('assets/img/star.png'));
-    imgs.insert(1, await ImageLoader.loadImage('assets/img/add.png'));
-    imgs.insert(2, await ImageLoader.loadImage('assets/img/close.png'));
+    List<ui.Image?> imgs = []..length = (3);
+    imgs[0] = await ImageLoader.loadImage('assets/img/star.png');
+    imgs[1] = await ImageLoader.loadImage('assets/img/add.png');
+    imgs[2] = await ImageLoader.loadImage('assets/img/close.png');
     List<ILineDataSet> dataSets = [];
 
     for (int z = 0; z < 3; z++) {
@@ -228,7 +228,7 @@ class LineChartMultipleState extends LineActionState<LineChartMultiple>
     (dataSets[0] as LineDataSet).setColors1(ColorUtils.VORDIPLOM_COLORS);
     (dataSets[0] as LineDataSet).setCircleColors(ColorUtils.VORDIPLOM_COLORS);
 
-    controller.data = LineData.fromList(dataSets);
+    controller!.data = LineData.fromList(dataSets);
 
     setState(() {});
   }

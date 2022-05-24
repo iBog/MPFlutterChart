@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/bar_chart.dart';
 import 'package:mp_chart/mp/chart/chart.dart';
@@ -28,6 +26,8 @@ import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/enums/x_axis_position.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/percent_formatter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class ScrollingChartMultiple extends StatefulWidget {
   @override
@@ -104,13 +104,13 @@ class ScrollingChartMultipleState
   }
 
   Widget _renderItem(int index) {
-    Chart chart;
+    Chart? chart;
     if (_controllers[index] is LineChartController) {
-      chart = _getLineChart(_controllers[index]);
+      chart = _getLineChart(_controllers[index] as LineChartController);
     } else if (_controllers[index] is BarChartController) {
-      chart = _getBarChart(_controllers[index]);
+      chart = _getBarChart(_controllers[index] as BarChartController);
     } else if (_controllers[index] is PieChartController) {
-      chart = _getPieChart(_controllers[index]);
+      chart = _getPieChart(_controllers[index] as PieChartController);
     }
 
     return Container(height: 200, child: chart);
@@ -123,18 +123,18 @@ class ScrollingChartMultipleState
       if (i % 3 == 0) {
         _controllers.add(LineChartController(
             axisLeftSettingFunction: (axisLeft, controller) {
-              axisLeft
+              axisLeft!
                 ..setLabelCount2(5, false)
                 ..setAxisMinimum(0);
             },
             axisRightSettingFunction: (axisRight, controller) {
-              axisRight
+              axisRight!
                 ..setLabelCount2(5, false)
                 ..drawGridLines = (false)
                 ..setAxisMinimum(0);
             },
             xAxisSettingFunction: (xAxis, controller) {
-              xAxis
+              xAxis!
                 ..position = (XAxisPosition.BOTTOM)
                 ..drawGridLines = (false)
                 ..drawAxisLine = (true);
@@ -148,19 +148,19 @@ class ScrollingChartMultipleState
       } else if (i % 3 == 1) {
         _controllers.add(BarChartController(
             axisLeftSettingFunction: (axisLeft, controller) {
-              axisLeft
+              axisLeft!
                 ..setLabelCount2(5, false)
                 ..setAxisMinimum(0)
                 ..spacePercentTop = (20);
             },
             axisRightSettingFunction: (axisRight, controller) {
-              axisRight
+              axisRight!
                 ..setLabelCount2(5, false)
                 ..setAxisMinimum(0)
                 ..spacePercentTop = (20);
             },
             xAxisSettingFunction: (xAxis, controller) {
-              xAxis
+              xAxis!
                 ..position = (XAxisPosition.BOTTOM)
                 ..drawAxisLine = (true)
                 ..drawGridLines = (false);
@@ -176,7 +176,7 @@ class ScrollingChartMultipleState
       } else if (i % 3 == 2) {
         _controllers.add(PieChartController(
             legendSettingFunction: (legend, controller) {
-              legend
+              legend!
                 ..verticalAlignment = (LegendVerticalAlignment.TOP)
                 ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
                 ..orientation = (LegendOrientation.VERTICAL)
@@ -225,7 +225,7 @@ class ScrollingChartMultipleState
     List<Entry> values2 = [];
 
     for (int i = 0; i < 12; i++) {
-      values2.add(Entry(x: i.toDouble(), y: values1[i].y - 30));
+      values2.add(Entry(x: i.toDouble(), y: values1[i].y! - 30));
     }
 
     LineDataSet d2 = LineDataSet(values2, "New DataSet $cnt, (2)");
@@ -255,7 +255,7 @@ class ScrollingChartMultipleState
     d.setColors1(ColorUtils.VORDIPLOM_COLORS);
     d.setHighLightAlpha(255);
 
-    BarData cd = BarData([]..add(d));
+    BarData cd = BarData(<BarDataSet>[]..add(d));
     cd.barWidth = (0.9);
     return cd;
   }
@@ -279,7 +279,7 @@ class ScrollingChartMultipleState
 
   LineChart _getLineChart(LineChartController controller) {
     var lineChart = LineChart(controller);
-    controller.animator
+    controller.animator!
       ..reset()
       ..animateX1(750);
     return lineChart;
@@ -287,19 +287,19 @@ class ScrollingChartMultipleState
 
   BarChart _getBarChart(BarChartController controller) {
     var barChart = BarChart(controller);
-    controller.animator
+    controller.animator!
       ..reset()
       ..animateY1(700);
     return barChart;
   }
 
   PieChart _getPieChart(PieChartController controller) {
-    controller.data
+    controller.data!
       ..setValueFormatter(PercentFormatter())
       ..setValueTextSize(11)
       ..setValueTextColor(ColorUtils.WHITE);
     var pieChart = PieChart(controller);
-    controller.animator
+    controller.animator!
       ..reset()
       ..animateY1(900);
     return pieChart;

@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:mp_chart/mp/chart/line_chart.dart';
@@ -16,6 +14,8 @@ import 'package:mp_chart/mp/core/enums/y_axis_label_position.dart';
 import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class EvenMoreHourly extends StatefulWidget {
   @override
@@ -47,7 +47,7 @@ class EvenMoreHourlyState extends LineActionState<EvenMoreHourly> {
           left: 0,
           top: 0,
           bottom: 100,
-          child: LineChart(controller),
+          child: LineChart(controller!),
         ),
         Positioned(
           left: 0,
@@ -98,7 +98,7 @@ class EvenMoreHourlyState extends LineActionState<EvenMoreHourly> {
     var desc = Description()..enabled = false;
     controller = LineChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..position = (YAxisLabelPosition.INSIDE_CHART)
 //      ..setTypeface(tfLight)
             ..textColor = (Color.fromARGB(255, 51, 181, 229))
@@ -110,14 +110,14 @@ class EvenMoreHourlyState extends LineActionState<EvenMoreHourly> {
             ..textColor = (Color.fromARGB(255, 255, 192, 56));
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
           (controller as LineChartController).setViewPortOffsets(0, 0, 0, 0);
-          legend.enabled = (false);
+          legend!.enabled = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..position = (XAxisPosition.TOP_INSIDE)
 //        ..setTypeface(tfLight)
             ..textSize = (10)
@@ -171,8 +171,8 @@ class EvenMoreHourlyState extends LineActionState<EvenMoreHourly> {
     set1.setDrawCircleHole(false);
 
     // create a data object with the data sets
-    controller.data = LineData.fromList([]..add(set1));
-    controller.data
+    controller!.data = LineData.fromList(<LineDataSet>[]..add(set1));
+    controller!.data!
       ..setValueTextColor(ColorUtils.getHoloBlue())
       ..setValueTextSize(9);
 
@@ -188,7 +188,7 @@ class A extends ValueFormatter {
   final intl.DateFormat mFormat = intl.DateFormat("dd MMM HH:mm");
 
   @override
-  String getFormattedValue1(double value) {
+  String getFormattedValue1(double? value) {
     return mFormat.format(DateTime.now());
   }
 }

@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
 import 'package:flutter/material.dart';
 import 'package:mp_chart/mp/chart/combined_chart.dart';
 import 'package:mp_chart/mp/controller/combined_chart_controller.dart';
@@ -30,6 +28,8 @@ import 'package:mp_chart/mp/core/enums/x_axis_position.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
 import 'package:mp_chart/mp/painter/combined_chart_painter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class OtherChartCombined extends StatefulWidget {
   @override
@@ -70,17 +70,17 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
     var desc = Description()..enabled = false;
     controller = CombinedChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
-          axisLeft
+          axisLeft!
             ..drawGridLines = (false)
             ..setAxisMinimum(0);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight
+          axisRight!
             ..drawGridLines = (false)
             ..setAxisMinimum(0);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..wordWrapEnabled = (true)
             ..verticalAlignment = (LegendVerticalAlignment.BOTTOM)
             ..horizontalAlignment = (LegendHorizontalAlignment.CENTER)
@@ -88,13 +88,13 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
             ..drawInside = (false);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..position = (XAxisPosition.BOTH_SIDED)
             ..setAxisMinimum(0)
             ..setGranularity(1)
             ..setValueFormatter(A())
             ..setAxisMaximum(
-                controller.data == null ? 0 : controller.data.xMax + 0.25);
+                controller.data == null ? 0 : controller.data!.xMax! + 0.25);
         },
         drawGridBackground: false,
         drawBarShadow: false,
@@ -106,7 +106,7 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
         pinchZoomEnabled: false,
         maxVisibleCount: 60,
         description: desc,
-        drawOrder: []
+        drawOrder: <DrawOrder>[]
           ..add(DrawOrder.BAR)
           ..add(DrawOrder.BUBBLE)
           ..add(DrawOrder.CANDLE)
@@ -116,7 +116,7 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
 
   void _initCombinedData() {
     controller.data = CombinedData();
-    controller.data
+    controller.data!
       ..setData1(generateLineData())
       ..setData2(generateBarData())
       ..setData5(generateBubbleData())
@@ -164,7 +164,7 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
       // stacked
       entries2.add(BarEntry.fromListYVals(
           x: 0,
-          vals: []
+          vals: <double>[]
             ..add(getRandom(13, 12))
             ..add(getRandom(13, 12))));
     }
@@ -176,10 +176,8 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
     set1.setAxisDependency(AxisDependency.LEFT);
 
     BarDataSet set2 = BarDataSet(entries2, "");
-    set2.setStackLabels([]
-      ..add("Stack 1")
-      ..add("Stack 2"));
-    set2.setColors1([]
+    set2.setStackLabels(<String>[]..add("Stack 1")..add("Stack 2"));
+    set2.setColors1(<Color>[]
       ..add(Color.fromARGB(255, 61, 165, 255))
       ..add(Color.fromARGB(255, 23, 197, 255)));
     set2.setValueTextColor(Color.fromARGB(255, 61, 165, 255));
@@ -191,9 +189,7 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
     double barWidth = 0.45; // x2 dataset
     // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
 
-    BarData d = BarData([]
-      ..add(set1)
-      ..add(set2));
+    BarData d = BarData(<BarDataSet>[]..add(set1)..add(set2));
     d.barWidth = (barWidth);
 
     // make this BarData object grouped
@@ -263,7 +259,7 @@ class OtherChartCombinedState extends CombinedActionState<OtherChartCombined> {
   }
 }
 
-final List<String> months = []
+final List<String> months = <String>[]
   ..add("Jan")
   ..add("Feb")
   ..add("Mar")
@@ -279,7 +275,7 @@ final List<String> months = []
 
 class A extends ValueFormatter {
   @override
-  String getFormattedValue1(double value) {
-    return months[value.toInt() % months.length];
+  String getFormattedValue1(double? value) {
+    return months[value!.toInt() % months.length];
   }
 }

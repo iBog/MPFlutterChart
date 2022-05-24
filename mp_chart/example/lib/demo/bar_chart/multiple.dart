@@ -1,12 +1,10 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:example/demo/action_state.dart';
-import 'package:example/demo/util.dart';
-import 'package:flutter/material.dart';
-import 'package:mp_chart/mp/chart/bar_chart.dart';
 import 'package:mp_chart/mp/controller/bar_chart_controller.dart';
 import 'package:mp_chart/mp/core/common_interfaces.dart';
+import 'package:flutter/material.dart';
+import 'package:mp_chart/mp/chart/bar_chart.dart';
 import 'package:mp_chart/mp/core/data/bar_data.dart';
 import 'package:mp_chart/mp/core/data_set/bar_data_set.dart';
 import 'package:mp_chart/mp/core/description.dart';
@@ -20,6 +18,8 @@ import 'package:mp_chart/mp/core/image_loader.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/large_value_formatter.dart';
 import 'package:mp_chart/mp/core/value_formatter/value_formatter.dart';
+import 'package:example/demo/action_state.dart';
+import 'package:example/demo/util.dart';
 
 class BarChartMultiple extends StatefulWidget {
   @override
@@ -139,7 +139,7 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
     controller = BarChartController(
         axisLeftSettingFunction: (axisLeft, controller) {
           ValueFormatter formatter = LargeValueFormatter();
-          axisLeft
+          axisLeft!
             ..typeface = Util.LIGHT
             ..setValueFormatter(formatter)
             ..drawGridLines = (false)
@@ -147,10 +147,10 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
             ..setAxisMinimum(0);
         },
         axisRightSettingFunction: (axisRight, controller) {
-          axisRight.enabled = (false);
+          axisRight!.enabled = (false);
         },
         legendSettingFunction: (legend, controller) {
-          legend
+          legend!
             ..verticalAlignment = (LegendVerticalAlignment.TOP)
             ..horizontalAlignment = (LegendHorizontalAlignment.RIGHT)
             ..orientation = (LegendOrientation.VERTICAL)
@@ -162,7 +162,7 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
             ..textSize = (8);
         },
         xAxisSettingFunction: (xAxis, controller) {
-          xAxis
+          xAxis!
             ..typeface = Util.LIGHT
             ..setGranularity(1.0)
             ..centerAxisLabels = true
@@ -188,13 +188,13 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
         description: desc);
   }
 
-  int groupCount;
-  int startYear;
-  int endYear;
+  late int groupCount;
+  late int startYear;
+  late int endYear;
   bool isDataInitial = false;
 
   void _initBarData(int count, double range) async {
-    List<ui.Image> imgs = [];
+    List<ui.Image?> imgs = []..length = (3);
     imgs[0] = await ImageLoader.loadImage('assets/img/star.png');
     imgs[1] = await ImageLoader.loadImage('assets/img/add.png');
     imgs[2] = await ImageLoader.loadImage('assets/img/close.png');
@@ -238,12 +238,9 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
     set4 = BarDataSet(values4, "Company D");
     set4.setColor1(Color.fromARGB(255, 255, 102, 0));
 
-    controller.data = BarData([]
-      ..add(set1)
-      ..add(set2)
-      ..add(set3)
-      ..add(set4));
-    controller.data
+    controller.data =
+        BarData(<BarDataSet>[]..add(set1)..add(set2)..add(set3)..add(set4));
+    controller.data!
       ..setValueFormatter(LargeValueFormatter())
       ..setValueTypeface(Util.LIGHT)
       // specify the width each bar should have
@@ -258,12 +255,12 @@ class BarChartMultipleState extends BarActionState<BarChartMultiple>
   void onNothingSelected() {}
 
   @override
-  void onValueSelected(Entry e, Highlight h) {}
+  void onValueSelected(Entry? e, Highlight? h) {}
 }
 
 class A extends ValueFormatter {
   @override
-  String getFormattedValue1(double value) {
-    return value.toInt().toString();
+  String getFormattedValue1(double? value) {
+    return value!.toInt().toString();
   }
 }
